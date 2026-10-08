@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cozy Knots Crochet</title>
+<style>
+:root{--cream:#fffaf5;--pink:#f5d9df;--sage:#dfe9dc;--ink:#403a38;--rose:#b97887}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--ink)}
+a{text-decoration:none;color:inherit}.top{background:var(--pink);padding:9px;text-align:center;font-size:13px}
+header{display:flex;align-items:center;justify-content:space-between;padding:20px 6%;background:#fffdfb;position:sticky;top:0;z-index:3}
+.logo{font-family:Georgia,serif;font-size:25px;font-weight:bold}.nav{display:flex;gap:20px;align-items:center}.nav a:hover{color:var(--rose)}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;padding:70px 8%;background:linear-gradient(135deg,#fffaf5,#f5eee8)}
+.hero h1{font:48px Georgia,serif;margin:0 0 12px}.hero p{font-size:18px;line-height:1.6}.btn{display:inline-block;background:var(--rose);color:white;padding:13px 22px;border-radius:25px;border:0;cursor:pointer}
+.hero-art{min-height:330px;border-radius:28px;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:80px}
+section{padding:55px 7%}.title{text-align:center;font:32px Georgia,serif;margin-bottom:28px}
+.categories{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:35px}.chip{padding:10px 17px;border:1px solid #dec8c5;border-radius:22px;background:white;cursor:pointer}.chip:hover{background:var(--pink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:white;border-radius:20px;padding:16px;box-shadow:0 5px 20px #0000000b}.pic{height:210px;border-radius:15px;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:65px}.card h3{margin:15px 0 6px}.price{font-weight:bold;color:var(--rose)}.actions{display:flex;align-items:center;justify-content:space-between;margin-top:14px}.share{font-size:22px;border:0;background:none;cursor:pointer}
+.about{background:var(--sage);border-radius:28px;padding:40px;line-height:1.7}
+footer{background:#403a38;color:white;padding:40px 7%;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+@media(max-width:750px){.hero{grid-template-columns:1fr;padding:45px 6%}.hero h1{font-size:38px}.grid{grid-template-columns:1fr}.nav{gap:8px;font-size:13px}.logo{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="top">✨ Handmade to order • 7–8 days • Cozy Knots Crochet ✨</div>
+<header><div class="logo">Cozy Knots Crochet ♡</div><nav class="nav"><a href="#home">Home</a><a href="#shop">Shop All</a><a href="#about">About</a><a href="#contact">Contact</a><a href="https://www.instagram.com/cozy_knots___/" target="_blank">Instagram</a></nav></header>
+
+<main id="home">
+<div class="hero"><div><h1>Handmade with love, one stitch at a time ♡</h1><p>Unique crochet gifts, bouquets, accessories, keychains and plushies—made specially for you.</p><a class="btn" href="#shop">Shop Now →</a></div><div class="hero-art">🧶🌷</div></div>
+
+<section id="shop"><h2 class="title">Shop Our Crochet Collection</h2>
+<div class="categories">
+<button class="chip" onclick="filter('all')">All</button><button class="chip" onclick="filter('bouquets')">Bouquets</button><button class="chip" onclick="filter('gifts')">Gifts</button><button class="chip" onclick="filter('keychains')">Keychains</button><button class="chip" onclick="filter('plushies')">Plushies</button><button class="chip" onclick="filter('flowers')">Flowers</button><button class="chip" onclick="filter('accessories')">Accessories</button>
+</div>
+<div class="grid" id="products"></div>
+</section>
+
+<section id="about"><h2 class="title">About Cozy Knots Crochet</h2><div class="about">Every piece is handmade with care and lots of love. This is your space for cute, thoughtful crochet creations—perfect for gifting or keeping for yourself. <br><br><b>Making time:</b> 7–8 days for handmade orders.</div></section>
+</main>
+
+<footer id="contact"><div><h3>Cozy Knots Crochet</h3><p>Spreading happiness, one stitch at a time ♡</p></div><div><h3>Contact</h3><p>Instagram: @cozy_knots___</p><p>WhatsApp: <i>add your number here</i></p></div><div><h3>Policies</h3><p>Returns • Shipping • Privacy</p></div></footer>
+
+<script>
+const data=[
+["Crochet Flower Bouquet","bouquets","₹799","🌷"],["Daisy Keychain","keychains","₹199","🌼"],["Mini Teddy Plushie","plushies","₹599","🧸"],["Gift Crochet Set","gifts","₹999","🎁"],["Crochet Flower","flowers","₹249","🌸"],["Crochet Headband","accessories","₹399","🎀"]
+];
+const box=document.getElementById('products');
+function render(items=data){box.innerHTML=items.map((p,i)=>`<article class="card"><div class="pic">${p[3]}</div><h3>${p[0]}</h3><div class="price">${p[2]}</div><div class="actions"><button class="btn" onclick="alert('Product placeholder — connect checkout later.')">Buy Now</button><button class="share" title="Share product" onclick="share('${p[0]}')">↗</button></div></article>`).join('')}
+function filter(cat){render(cat==='all'?data:data.filter(p=>p[1]===cat))}
+async function share(name){const url=location.href+'#'+encodeURIComponent(name);if(navigator.share){await navigator.share({title:name,text:'Check out this crochet product from Cozy Knots Crochet',url})}else{await navigator.clipboard.writeText(url);alert('Product link copied!')}}
+render();
+</script>
+</body></html>
